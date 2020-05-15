@@ -38,7 +38,7 @@ train_datagen = ImageDataGenerator(
     horizontal_flip=True,
     # featurewise_center=True,
     # featurewise_std_normalization=True,
-    zca_whitening=True,
+    # zca_whitening=True,
 )
 
 #############-----------Parameter Validation ImageDataGenerator-----------#############

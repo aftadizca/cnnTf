@@ -8,11 +8,11 @@ from keras import backend as K
 optimizer = keras.optimizers.Adam()
 img_width = 128
 img_height = 128
-qty_class = 4
+qty_class = 3
 dropout = 0.25
 color_mode = 'grayscale'
 loss = keras.losses.CategoricalCrossentropy()
-metrics = keras.metrics.CategoricalAccuracy()
+metrics = keras.metrics.CategoricalAccuracy().name
 activation_conv = keras.activations.relu
 activation_dense = keras.activations.relu
 activation_dense_end = keras.activations.sigmoid
@@ -35,12 +35,10 @@ def model():
                      activation=activation_conv, input_shape=input_shape))
     model.add(Conv2D(64, (3, 3), activation=activation_conv))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(dropout))
 
     model.add(Conv2D(64, (3, 3), padding='same', activation=activation_conv))
     model.add(Conv2D(64, (3, 3), activation=activation_conv))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(dropout))
 
     model.add(Conv2D(128, (3, 3), padding='same', activation=activation_conv))
     model.add(Conv2D(128, (3, 3), activation='relu'))
@@ -49,6 +47,12 @@ def model():
 
     model.add(Flatten())
     model.add(Dense(256, activation=activation_dense))
+    model.add(Dropout(dropout))
+    model.add(Dense(128, activation=activation_dense))
+    model.add(Dropout(dropout))
+    model.add(Dense(64, activation=activation_dense))
+    model.add(Dropout(dropout))
+    model.add(Dense(32, activation=activation_dense))
     model.add(Dropout(dropout))
     model.add(Dense(qty_class, activation=activation_dense_end))
 
