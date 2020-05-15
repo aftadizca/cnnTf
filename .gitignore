@@ -1,3 +1,5 @@
 traindata/*
 augmented/*
 __pycache__
+log/*
+*.hdf5

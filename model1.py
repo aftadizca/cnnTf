@@ -5,13 +5,14 @@ from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten, Activati
 from keras import backend as K
 
 #############-----------Parameter-----------#############
-optimizer = keras.optimizers.Adam
+optimizer = keras.optimizers.Adam()
 img_width = 128
 img_height = 128
 qty_class = 4
 dropout = 0.25
-loss = keras.losses.CategoricalCrossentropy
-metrics = keras.metrics.CategoricalAccuracy
+color_mode = 'grayscale'
+loss = keras.losses.CategoricalCrossentropy()
+metrics = keras.metrics.CategoricalAccuracy()
 activation_conv = keras.activations.relu
 activation_dense = keras.activations.relu
 activation_dense_end = keras.activations.sigmoid
@@ -27,7 +28,7 @@ else:
 
 
 #############-----------MODEL-----------#############
-def model1():
+def model():
     print("Create Model")
     model = Sequential()
     model.add(Conv2D(64, (3, 3), padding='same',
