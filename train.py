@@ -17,7 +17,7 @@ model_name = os.path.basename(model.__file__).replace(".py", "")
 train_dirs = 'traindata/train/'
 validation_dirs = 'traindata/valid/'
 log_dirs = os.path.join(
-    'log', model_name, datetime.now().strftime("%Y%m%d - %H%M%S"))
+    'log', model_name, datetime.now().strftime("%Y.%m.%d - %H.%M.%S"))
 
 #############-----------TRAIN PARAMETER-----------#############
 class_mode = 'categorical'  # "binary" jika hanya 2 class
@@ -71,7 +71,7 @@ valid_generator = valid_datagen.flow_from_directory(
 #############-----------CALLBACK-----------#############
 checkpointer = ModelCheckpoint(
     filepath=model_name+'.hdf5', monitor='val_loss', verbose=0, save_best_only=True, mode='auto')
-#### ----- cara pakai ---> tensorboard --logdir logs/model_name ---####
+#### ----- cara pakai ---> tensorboard --logdir log/model_name ---####
 tensorboard_callbacks = TensorBoard(log_dir=log_dirs)
 
 # -----------DETECT EXISTING MODEL-----------#############n
