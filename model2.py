@@ -16,7 +16,7 @@ loss = keras.losses.CategoricalCrossentropy(from_logits=True)
 metrics = ['accuracy']
 activation_conv = 'relu'
 activation_dense = 'relu'
-activation_dense_end = 'softmax'
+activation_dense_end = 'sigmoid'
 
 #############-----------Check Channel-----------#############
 print("Check channel position")
