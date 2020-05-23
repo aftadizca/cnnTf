@@ -12,6 +12,7 @@ img_height = 128
 qty_class = 4
 dropout = 0.3
 color_mode = 'grayscale'
+class_mode = 'categorical'
 loss = keras.losses.CategoricalCrossentropy(from_logits=True)
 metrics = ['accuracy']
 activation_conv = 'relu'

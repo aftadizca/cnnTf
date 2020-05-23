@@ -1,7 +1,7 @@
+import disable_log
 import model1 as model
-import os
-import logging
 from datetime import datetime
+from dirs import train_dirs, validation_dirs
 import tensorflow as tf
 from tensorflow import keras
 from keras.preprocessing.image import ImageDataGenerator
@@ -10,23 +10,20 @@ from keras.models import load_model
 
 
 #############-----------TEST PARAMETER-----------#############
-test_dirs = 'traindata/train/'
-class_mode = 'categorical'  # "binary" jika hanya 2 class
+model_filename = 'model2.895-0.74.hdf5'
 batch_size = 4
-test_size = 300  # jumlah data/file training
-epochs = 1000
+test_size = 68  # jumlah data/file training
 
-test_datagen = ImageDataGenerator(rescale=1./255)
-
+test_datagen = ImageDataGenerator(rescale=1. / 255)
 test_generator = test_datagen.flow_from_directory(
-    test_dirs,
+    validation_dirs,
     color_mode=model.color_mode,
     target_size=(model.img_width, model.img_height),
     batch_size=batch_size,
-    class_mode=class_mode
+    class_mode=model.class_mode
 )
 
-myModel = load_model('model1.hdf5')
+myModel = load_model(model_filename)
 myModel.compile(
     optimizer=model.optimizer,
     loss=model.loss,
@@ -35,7 +32,10 @@ myModel.compile(
 
 score = myModel.evaluate(
     test_generator,
-    steps=test_size//batch_size,
-    verbose=2
+    steps=test_size // batch_size,
+    verbose=1
 )
-print("Evaluate : Loss -> ", score[0], " Accuracy --> ", score[1]*100)
+atribut = myModel.metrics_names
+print()
+print(
+    f'Evaluate : {atribut[0]} -> {score[0]} , {atribut[1]} ->  {score[1]*100}')
