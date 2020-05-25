@@ -8,9 +8,10 @@ import os
 TODO: mencoba fine tuning model
 TODO: v1 -> intitial not fine tune lr=default
 TODO: v2 -> unfreeze after compile lr=1e-5
-TODO: v3 -> unfreeze before compile lr=1e-5
+TODO: v3 -> unfreeze before compile lr=1e-5 tunning=100
 """
-
+MODEL_NAME = os.path.basename(__file__).replace(".py","")
+TUNNING = 100
 IMAGE_SIZE = 128
 CLASSES_NUM = 5
 COLOR_MODE = 'rgb'
@@ -46,4 +47,10 @@ def model():
                   loss=LOSS,
                   metrics=METRICS)
 
+    return model
+
+def beforeCompile(model):
+    model.layers[0].trainable = True
+    for layer in model.layers[0].layers[:100]:
+        layer.trainable = False
     return model
