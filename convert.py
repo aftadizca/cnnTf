@@ -7,10 +7,11 @@ import numpy as np
 import sys
 
 
-model_name = "model4.2020.05.23"
+model_name = "model6.1_2020_05_23"
+model_dirs = "model/model6/"
 
 # load json and create model
-loaded_model = load_model(model_name + ".hdf5") or quit()
+loaded_model = load_model(model_dirs + model_name + ".hdf5") or quit()
 
 # for i, w in enumerate(loaded_model.get_weights()):
 #     print(
@@ -24,6 +25,6 @@ converter = tf.lite.TFLiteConverter.from_keras_model(loaded_model)
 converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
 tflite_model = converter.convert()
 
-with open(model_name + ".tflite", "wb") as f:
+with open(model_dirs + model_name + ".tflite", "wb") as f:
     f.write(tflite_model)
 print("Convert Done")
