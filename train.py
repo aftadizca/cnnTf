@@ -7,12 +7,12 @@ from datetime import datetime
 from pathlib import Path
 import tensorflow as tf
 
-import model6 as model  # change model
+import model6 as model  #! change this
+ITERATION = "2" #! change this
 
 os.system("clear")
 #############-----------IMPORT MODEl-----------#############
 MODEL_NAME = os.path.basename(model.__file__).replace(".py", "")
-ITERATION = "1"
 #############-----------CALLBACK DIRECTORY-----------#############
 Path(os.path.join(model_dirs, MODEL_NAME)).mkdir(exist_ok=True, parents=True)
 log_dirs = os.path.join(
@@ -61,6 +61,12 @@ valid_generator = valid_datagen.flow_from_directory(
     class_mode=model.CLASSES_MODE
 )
 
+#Fine Tunning
+def tunning(model, length):
+    model.layers[0].trainable = True
+    for layer in model.layers[0].layers[:length]:
+        layer.trainable = False
+    return model
 
 #############-----------Create file from ImageDataGenerator-----------#############
 # image = train_datagen.flow_from_directory('traindata/train', target_size=(
@@ -80,6 +86,8 @@ try:
             print("\nLoading model -> ", list_model.getFileName(int(user_input)))
             myModel = tf.keras.models.load_model(
                 list_model.getFilePath(int(user_input)))
+            #Fine Tunning
+            myModel = tunning(myModel,100)
             myModel.compile(
                 optimizer=model.OPTIMIZER,
                 loss=model.LOSS,
@@ -101,10 +109,7 @@ checkpointer = tf.keras.callbacks.ModelCheckpoint(
 #### ----- cara pakai ---> tensorboard --logdir log/model_name ---####
 tensorboard_callbacks = tf.keras.callbacks.TensorBoard(log_dir=log_dirs)
 
-myModel.layers[0].trainable = True
 
-for layer in myModel.layers[0].layers[:100]:
-    layer.trainable = False
 
 myModel.summary()
 #############-----------TRAINING PROSES-----------#############
