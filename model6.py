@@ -4,6 +4,13 @@ from datetime import datetime
 from dirs import train_dirs, validation_dirs, model_dirs
 import os
 
+"""
+TODO: mencoba fine tuning model
+TODO: v1 -> intitial not fine tune lr=default
+TODO: v2 -> unfreeze after compile lr=1e-5
+TODO: v3 -> unfreeze before compile lr=1e-5
+"""
+
 IMAGE_SIZE = 128
 CLASSES_NUM = 5
 COLOR_MODE = 'rgb'
@@ -13,11 +20,8 @@ OPTIMIZER = tf.keras.optimizers.Adam(learning_rate=1e-5,)
 LOSS = 'categorical_crossentropy'
 METRICS = ['accuracy']
 
-# mencoba fine tuning model
-
-
 def model():
-    # Create the base model from the pre-trained model MobileNet V2
+    #? Create the base model from the pre-trained model MobileNet V2
     base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
                                                    include_top=False,
                                                    weights='imagenet')
