@@ -6,14 +6,15 @@ from datetime import datetime
 from pathlib import Path
 import tensorflow as tf
 
-import model6 as model  #! change this
-ITERATION = "3" #! change this
+import model7 as model  #! change this
+ITERATION = "1" #! change this
+BEFORE_COMPILE = True #! change this
 
 #############!-----------TRAIN PARAMETER-----------#############
 batch_size = 16
 training_size = 1605  # jumlah data/file training
 validation_size = 124  # jumlah data/file validasi
-epochs = 1000
+epochs = 500
 
 
 os.system("clear")
@@ -70,7 +71,7 @@ valid_generator = valid_datagen.flow_from_directory(
 # image.next()
 
 #############-----------DETECT EXISTING MODEL-----------#############
-myModel = detectModel(model_dirs,model)
+myModel = detectModel(model_dirs,model,beforeFunc=BEFORE_COMPILE)
 
 #############-----------CALLBACK-----------#############
 checkpointer = tf.keras.callbacks.ModelCheckpoint(
@@ -93,4 +94,4 @@ myModel.fit(
 
 
 #############-----------SHUTDOWN WHEN DONE-----------#############
-#os.system("systemctl poweroff")
+os.system("systemctl poweroff")

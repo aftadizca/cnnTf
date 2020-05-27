@@ -9,8 +9,8 @@ import tensorflow_model_optimization as tfmot
 
 
 
-model_name = "model6.2_2020_05_25"
-model_dirs = "model/model6/"
+model_name = "model7.1_2020_05_26"
+model_dirs = "model/model7/"
 
 # load json and create model
 loaded_model = load_model(model_dirs + model_name + ".hdf5") or quit()
@@ -32,7 +32,7 @@ loaded_model = load_model(model_dirs + model_name + ".hdf5") or quit()
 #     )
 
 converter = tf.lite.TFLiteConverter.from_keras_model(loaded_model)
-converter.optimizations = [tf.lite.Optimize.DEFAULT]
+converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
 tflite_model = converter.convert()
 
 with open(model_dirs + model_name + ".tflite", "wb") as f:
