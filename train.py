@@ -65,6 +65,8 @@ valid_generator = valid_datagen.flow_from_directory(
     class_mode=model.CLASSES_MODE
 )
 
+print(train_generator.__getitem__(0)[0])
+
 #############-----------Create file from ImageDataGenerator-----------#############
 # image = train_datagen.flow_from_directory('traindata/train', target_size=(
 #     128, 128), color_mode='grayscale', save_to_dir='augmented', class_mode='categorical', save_format='jpeg', batch_size=10)
@@ -79,6 +81,7 @@ checkpointer = tf.keras.callbacks.ModelCheckpoint(
 #### ----- cara pakai ---> tensorboard --logdir log/model_name ---####
 tensorboard_callbacks = tf.keras.callbacks.TensorBoard(log_dir=log_dirs)
 
+#myModel.layers[0].summary()
 myModel.summary()
 
 #############-----------TRAINING PROSES-----------#############

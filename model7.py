@@ -53,3 +53,10 @@ def beforeCompile(model):
     for layer in model.layers[0].layers[:227]:
         layer.trainable = False
     return model
+
+
+m = model()
+
+m.layers[0].summary()
+
+print(f"TOTAL LAYER : {len(m.layers) + len(m.layers[0].layers) -1}")
