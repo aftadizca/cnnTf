@@ -1,7 +1,8 @@
-traindata/*
+traindata*/*
 augmented/*
 __pycache__
 log/*
 *.hdf5
 *.hdf5.back
 *.tflite
+*.zip

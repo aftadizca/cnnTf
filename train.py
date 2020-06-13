@@ -65,7 +65,7 @@ valid_generator = valid_datagen.flow_from_directory(
     class_mode=model.CLASSES_MODE
 )
 
-print(train_generator.__getitem__(0)[0])
+#print(train_generator.__getitem__(0)[0])
 
 #############-----------Create file from ImageDataGenerator-----------#############
 # image = train_datagen.flow_from_directory('traindata/train', target_size=(

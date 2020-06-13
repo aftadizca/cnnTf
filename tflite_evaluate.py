@@ -8,8 +8,8 @@ rows, columns = os.popen('stty size', 'r').read().split()
 
 size_column = int(int(columns)*0.5//3)
 
-TFLITE_MODEL = "model7.1_2020_05_26"
-TFLITE_DIRS = "model/model7/"
+TFLITE_MODEL = "model5.2020.05.23"
+TFLITE_DIRS = "model/model5/"
 TRAIN_DATA = 'traindata/train'
 
 tflite_interpreter = tf.lite.Interpreter(model_path=TFLITE_DIRS+TFLITE_MODEL+".tflite")
