@@ -5,9 +5,11 @@ from dirs import train_dirs, validation_dirs, model_dirs
 import os
 
 """
-TODO: Use DenseNet121 427 layers
-TODO: v1 -> intitial not fine tune lr=default
-TODO: v2 -> fine tune, lr=1-e5, 200 layer trainable
+TODO: v1 -> lr=default, epoch = 250
+TODO: v2 -> lr=default, epoch = 500
+TODO: v3 -> lr=1-e5, epoch = 250
+TODO: v4 -> lr=1-e5, epoch = 500
+
 
 """
 MODEL_NAME = os.path.basename(__file__).replace(".py","")
@@ -23,12 +25,12 @@ METRICS = ['accuracy']
 DROPOUT = 0.3
 ACTIVATION_CONV = 'relu'
 ACTIVATION_DENSE = 'relu'
-ACTIVATION_DENSE_END = 'sigmoid'
+ACTIVATION_DENSE_END = 'softmax'
 
 def model():
     print("Create Model")
     model = tf.keras.Sequential()
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), padding='same',
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), padding='same',
                      activation=ACTIVATION_CONV, input_shape=IMG_SHAPE))
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
     model.add(tf.keras.layers.BatchNormalization())
@@ -42,16 +44,20 @@ def model():
     model.add(tf.keras.layers.BatchNormalization())
 
     model.add(tf.keras.layers.Conv2D(256, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(3, 3)))
+    model.add(tf.keras.layers.BatchNormalization())
+
+    model.add(tf.keras.layers.Conv2D(256, (3, 3), padding='same', activation=ACTIVATION_CONV))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
 
     model.add(tf.keras.layers.Flatten())
 
     model.add(tf.keras.layers.Dense(256, activation=ACTIVATION_DENSE))
     model.add(tf.keras.layers.Dropout(DROPOUT))
-    model.add(tf.keras.layers.Dense(256, activation=ACTIVATION_DENSE))
+    model.add(tf.keras.layers.Dense(128, activation=ACTIVATION_DENSE))
     model.add(tf.keras.layers.Dropout(DROPOUT))
-    model.add(tf.keras.layers.Dense(256, activation=ACTIVATION_DENSE))
+    model.add(tf.keras.layers.Dense(64, activation=ACTIVATION_DENSE))
     model.add(tf.keras.layers.Dropout(DROPOUT))
     model.add(tf.keras.layers.Dense(CLASSES_NUM, activation=ACTIVATION_DENSE_END))
 
@@ -68,8 +74,8 @@ def beforeCompile(model):
     return model
 
 
-m = model()
+# m = model()
 
-m.layers[0].summary()
+# m.layers[0].summary()
 
-print(f"TOTAL LAYER : {len(m.layers) + len(m.layers[0].layers) -1}")
+# print(f"TOTAL LAYER : {len(m.layers) + len(m.layers[0].layers) -1}")
