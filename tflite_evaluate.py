@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import os
+import os, fnmatch
 import sys
 from time import sleep
 
@@ -8,17 +8,33 @@ rows, columns = os.popen('stty size', 'r').read().split()
 
 size_column = int(int(columns)*0.5//3)
 
-TFLITE_MODEL = "model4.v1_2020_06_17"
 TFLITE_DIRS = "model/model4/"
 TRAIN_DATA = 'traindata/valid'
 
-tflite_interpreter = tf.lite.Interpreter(model_path=TFLITE_DIRS+TFLITE_MODEL+".tflite")
+## Detect model
+model_list = fnmatch.filter(os.listdir(TFLITE_DIRS),'*.tflite')
+for i, filename in enumerate(model_list,1):
+    print(f'{i}. {filename}')
+
+model_index = 0
+print(len(model_list))
+
+while not(model_index > 0 and model_index <= len(model_list)):
+    model_index = input("\033[FSelect model : ")
+    if model_index.isdigit():
+        model_index = int(model_index)
+    else:
+        model_index = 0
+##
+
+
+tflite_interpreter = tf.lite.Interpreter(model_path=TFLITE_DIRS+model_list[model_index-1])
 tflite_interpreter.allocate_tensors()
 
 input_details = tflite_interpreter.get_input_details()
 output_details = tflite_interpreter.get_output_details()
 
-print(f"\n{TFLITE_MODEL:^{size_column*4}s}\n")
+print(f"\n{model_list[model_index-1]:^{size_column*4}s}\n")
 shape = input_details[0]['shape'][3]
 if shape == 3:
     COLOR_MODE = 'rgb'
@@ -63,7 +79,7 @@ for folder in os.listdir(TRAIN_DATA):
         num_files+=1
         #np.savetxt(f,np.asarray(tflite_model_predictions),delimiter=',')
         sys.stdout.write('\r')
-        sys.stdout.write(f'{"   "+folder:<{size_column}s}|{str(num_files):^{size_column}s}|{str(true_label):^{size_column}s}|{str(round(true_label/num_files*100,0))+"%":^{size_column}s}')
+        sys.stdout.write(f'{"   "+folder:<{size_column}s}|{str(num_files):^{size_column}s}|{str(true_label):^{size_column}s}|{str(round(true_label/num_files*100,2))+"%":^{size_column}s}')
         sys.stdout.flush()
     print()
     total_files += num_files
