@@ -47,7 +47,7 @@ def model():
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
 
-    model.add(tf.keras.layers.Conv2D(52, (3, 3), padding='same', activation=ACTIVATION_CONV))
+    model.add(tf.keras.layers.Conv2D(512, (3, 3), padding='same', activation=ACTIVATION_CONV))
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
 

@@ -8,9 +8,9 @@ rows, columns = os.popen('stty size', 'r').read().split()
 
 size_column = int(int(columns)*0.5//3)
 
-TFLITE_MODEL = "model5.2020.05.23"
-TFLITE_DIRS = "model/model5/"
-TRAIN_DATA = 'traindata/train'
+TFLITE_MODEL = "model4.v1_2020_06_17"
+TFLITE_DIRS = "model/model4/"
+TRAIN_DATA = 'traindata/valid'
 
 tflite_interpreter = tf.lite.Interpreter(model_path=TFLITE_DIRS+TFLITE_MODEL+".tflite")
 tflite_interpreter.allocate_tensors()

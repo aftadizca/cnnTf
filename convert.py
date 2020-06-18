@@ -9,8 +9,8 @@ import tensorflow_model_optimization as tfmot
 
 
 
-model_name = "model7.1_2020_05_26"
-model_dirs = "model/model7/"
+model_name = "model4.v1_2020_06_17"
+model_dirs = "model/model4/"
 
 # load json and create model
 loaded_model = load_model(model_dirs + model_name + ".hdf5") or quit()
