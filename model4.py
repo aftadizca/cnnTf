@@ -5,8 +5,9 @@ from dirs import train_dirs, validation_dirs, model_dirs
 import os
 
 """
-TODO: v1 -> lr=default, epoch = 250
-TODO: v2 -> lr=default, epoch = 500
+TODO: v1 -> lr=default(0.001), epoch = 250
+TODO: v2 -> lr=default(0.001), epoch = 400
+TODO: v2.1 -> lr=default(0.001), epoch = 500
 TODO: v3 -> lr=1-e5, epoch = 250
 TODO: v4 -> lr=1-e5, epoch = 500
 
