@@ -8,8 +8,8 @@ import os
 TODO: v1 -> lr=default(0.001), epoch = 250
 TODO: v2 -> lr=default(0.001), epoch = 400
 TODO: v2.1 -> lr=default(0.001), epoch = 500
-TODO: v3 -> lr=1-e5, epoch = 250
-TODO: v4 -> lr=1-e5, epoch = 500
+TODO: v3 -> lr=0.01, epoch = 250
+TODO: v4 -> lr=0.01, epoch = 500
 
 
 """
@@ -20,7 +20,7 @@ CLASSES_NUM = 5
 COLOR_MODE = 'grayscale'
 CLASSES_MODE = 'categorical'
 IMG_SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 1) 
-OPTIMIZER = tf.keras.optimizers.Adam()
+OPTIMIZER = tf.keras.optimizers.Adam(learning_rate=0.01)
 LOSS = 'categorical_crossentropy'
 METRICS = ['accuracy']
 DROPOUT = 0.3
