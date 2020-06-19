@@ -9,7 +9,10 @@ TODO: v1 -> lr=default(0.001), epoch = 250
 TODO: v2 -> lr=default(0.001), epoch = 400
 TODO: v2.1 -> lr=default(0.001), epoch = 500
 TODO: v3 -> lr=0.01, epoch = 250
-TODO: v4 -> lr=0.01, epoch = 500
+TODO: v4 -> lr=0.01, epoch = 500 // skipped
+TODO: v5 -> lr=1e-5, epoch = 250
+TODO: v6 -> lr=1e-5, epoch = 500
+TODO: v6.1 -> lr=1e-5, epoch = 500 // continue from v6
 
 
 """
