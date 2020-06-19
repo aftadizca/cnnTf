@@ -14,7 +14,7 @@ TRAIN_DATA = 'traindata/valid'
 ## Detect model
 model_list = fnmatch.filter(os.listdir(TFLITE_DIRS),'*.tflite')
 for i, filename in enumerate(model_list,1):
-    print(f'{i}. {filename}')
+    print(f'{i}. {filename.replace(".tflite","")}')
 
 model_index = 0
 print(len(model_list))
@@ -34,7 +34,9 @@ tflite_interpreter.allocate_tensors()
 input_details = tflite_interpreter.get_input_details()
 output_details = tflite_interpreter.get_output_details()
 
-print(f"\n{model_list[model_index-1]:^{size_column*4}s}\n")
+model_name = model_list[model_index-1].replace(".tflite", "")
+
+print(f"\n{model_name:^{size_column*4}s}\n")
 shape = input_details[0]['shape'][3]
 if shape == 3:
     COLOR_MODE = 'rgb'
