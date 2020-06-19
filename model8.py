@@ -80,7 +80,7 @@ def model():
     # model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2),strides=(2,2)))
 
     model.add(tf.keras.layers.GlobalAveragePooling2D())
-    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dropout(0.3))
 
     #Classification Block
     model.add(tf.keras.layers.Flatten())
