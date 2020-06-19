@@ -104,8 +104,8 @@ def beforeCompile(model):
     return model
 
 
-m = model()
+# m = model()
 
-m.summary()
+# m.summary()
 
 # print(f"TOTAL LAYER : {len(m.layers) + len(m.layers[0].layers) -1}")
