@@ -73,7 +73,7 @@ rows, columns = os.popen('stty size', 'r').read().split()
 
 size_column = int(int(columns)*0.5//3)
 
-TFLITE_DIRS = "model/model4/"
+TFLITE_DIRS = "model/model8/"
 data_dirs = 'traindata/valid'
 
 ## Detect model

@@ -20,9 +20,9 @@ MODEL_NAME = os.path.basename(__file__).replace(".py","")
 TUNNING = 100
 IMAGE_SIZE = 128
 CLASSES_NUM = 5
-COLOR_MODE = 'grayscale'
+COLOR_MODE = 'rgb'
 CLASSES_MODE = 'categorical'
-IMG_SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 1) 
+IMG_SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 3) 
 OPTIMIZER = tf.keras.optimizers.Adam(learning_rate=0.001)
 LOSS = 'categorical_crossentropy'
 METRICS = ['accuracy']
