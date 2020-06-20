@@ -80,15 +80,17 @@ def model():
     # model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2),strides=(2,2)))
 
     model.add(tf.keras.layers.GlobalAveragePooling2D())
-    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dropout(0.3))
 
     #Classification Block
     model.add(tf.keras.layers.Flatten())
 
-    model.add(tf.keras.layers.Dense(1024, activation=ACTIVATION_DENSE))
-    model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(512, activation=ACTIVATION_DENSE))
-    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dropout(0.3))
+    model.add(tf.keras.layers.Dense(256, activation=ACTIVATION_DENSE))
+    model.add(tf.keras.layers.Dropout(0.3))
+    model.add(tf.keras.layers.Dense(128, activation=ACTIVATION_DENSE))
+    model.add(tf.keras.layers.Dropout(0.3))
     model.add(tf.keras.layers.Dense(CLASSES_NUM, activation=ACTIVATION_DENSE_END))
 
     model.compile(optimizer=OPTIMIZER,
