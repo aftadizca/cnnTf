@@ -31,14 +31,15 @@ def evaluateModel(model_dirs, train_dirs):
     true_prediction = 0
     index = 0
 
-    print(f'{"":=^{size_column*4}s}')
-    print(f'{"   LABEL":<{size_column}s}|{"TOTAL":^{size_column}s}|{"TRUE":^{size_column}s}|{"ACCURACY":^{size_column}s}') 
-    print(f'{"":=^{size_column*4}s}')
+    print(f'{"":=^{size_column*5}s}')
+    print(f'{"   LABEL":<{size_column}s}|{"TOTAL DATA":^{size_column}s}|{"SUKSES":^{size_column}s}|{"GAGAL":^{size_column}s}|{"AKURASI":^{size_column}s}') 
+    print(f'{"":=^{size_column*5}s}')
 
     for folder in os.listdir(train_dirs):
         path_label = os.path.join(train_dirs,folder)
         num_files = 0
         true_label = 0
+        false_label = 0
         #f.write(bytes(folder+'\n','utf-8'))
         for files in os.listdir(path_label):
             img_predict = tf.keras.preprocessing.image.load_img(os.path.join(path_label,files), target_size=(128, 128), color_mode = COLOR_MODE)
@@ -54,27 +55,29 @@ def evaluateModel(model_dirs, train_dirs):
             if tflite_model_predictions[0][index] > 0.5:
                 true_prediction+=1
                 true_label+=1
+            else:
+                false_label+=1
             num_files+=1
             #np.savetxt(f,np.asarray(tflite_model_predictions),delimiter=',')
             sys.stdout.write('\r')
-            sys.stdout.write(f'{"   "+folder:<{size_column}s}|{str(num_files):^{size_column}s}|{str(true_label):^{size_column}s}|{str(round(true_label/num_files*100,2))+"%":^{size_column}s}')
+            sys.stdout.write(f'{"   "+folder:<{size_column}s}|{str(num_files):^{size_column}s}|{str(true_label):^{size_column}s}|{str(false_label):^{size_column}s}|{str(round(true_label/num_files*100,2))+"%":^{size_column}s}')
             sys.stdout.flush()
         print()
         total_files += num_files
         index+=1
     #f.close()
     print()
-    print("TOTAL IMG :" + str(total_files))
-    print("TOTAL TRUE :" + str(true_prediction))
-    print("ACCURACY : ", "{0:.3f}%\n".format(true_prediction/total_files*100))
+    print("TOTAL GAMBAR  :" , str(total_files))
+    print("TOTAL SUKSES  :" , str(true_prediction))
+    print("TOTAL AKURASI : ", "{0:.2f}%\n".format(true_prediction/total_files*100))
 
 
 rows, columns = os.popen('stty size', 'r').read().split()
 
 size_column = int(int(columns)*0.5//3)
 
-TFLITE_DIRS = "model/model9/"
-data_dirs = 'traindata/valid'
+TFLITE_DIRS = "model/model10/"
+data_dirs = 'traindata2/test'
 
 ## Detect model
 model_list = fnmatch.filter(os.listdir(TFLITE_DIRS),'*.tflite')

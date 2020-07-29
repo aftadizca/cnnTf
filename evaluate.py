@@ -1,23 +1,24 @@
 import disable_log
-import model1 as model
+import model10 as model
 from datetime import datetime
-from dirs import train_dirs, validation_dirs
 import tensorflow as tf
+import os
 
 
 #############-----------TEST PARAMETER-----------#############
-model_filename = 'model2.895-0.74.hdf5'
-batch_size = 4
-test_size = 68  # jumlah data/file training
+validation_dirs = 'traindata2/train'
+model_filename = 'model/model10/model10.e300lr1e-04.hdf5'
+batch_size = 32
 
+print(os.path.basename(model_filename))
 
 test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
 test_generator = test_datagen.flow_from_directory(
     validation_dirs,
     color_mode=model.COLOR_MODE,
-    target_size=(model.IMG_WIDTH, model.IMG_HEIGHT),
+    target_size=(model.IMAGE_SIZE, model.IMAGE_SIZE),
     batch_size=batch_size,
-    class_mode=model.COLOR_MODE
+    class_mode=model.CLASSES_MODE
 )
 
 myModel = tf.keras.models.load_model(model_filename)
@@ -29,7 +30,7 @@ myModel.compile(
 
 score = myModel.evaluate(
     test_generator,
-    steps=test_size // batch_size,
+    steps=len(test_generator),
     verbose=1
 )
 atribut = myModel.metrics_names

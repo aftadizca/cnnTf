@@ -34,35 +34,26 @@ ACTIVATION_DENSE_END = 'softmax'
 def model():
     print("Create Model")
     model = tf.keras.models.Sequential()
+
+    # BLOCK 1
     model.add(tf.keras.layers.Conv2D(128, (3, 3), padding='same', activation=ACTIVATION_CONV, input_shape=IMG_SHAPE))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-    model.add(tf.keras.layers.BatchNormalization())
-
+    # BLOCK 2
     model.add(tf.keras.layers.Conv2D(128, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-    model.add(tf.keras.layers.BatchNormalization())
-
+    # BLOCK 3
     model.add(tf.keras.layers.Conv2D(192, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Conv2D(192, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-    model.add(tf.keras.layers.BatchNormalization())
-
+    # BLOCK 4
     model.add(tf.keras.layers.Conv2D(256, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Conv2D(256, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-    model.add(tf.keras.layers.BatchNormalization())
-
+    # BLOCK 5
     model.add(tf.keras.layers.Conv2D(512, (3, 3), padding='same', activation=ACTIVATION_CONV))
-    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-    model.add(tf.keras.layers.BatchNormalization())
 
+    # CLASSIFICATION
     model.add(tf.keras.layers.Flatten())
 
     model.add(tf.keras.layers.Dense(256, activation=ACTIVATION_DENSE))
